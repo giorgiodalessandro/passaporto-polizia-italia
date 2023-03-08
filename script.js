@@ -39,6 +39,7 @@
             !rowAvailability ||
             !!toSkip.find(e => e == rowCity)
         ) {
+            document.getElementById(iteration.id).innerHTML = '';
             continue;
         }
 
