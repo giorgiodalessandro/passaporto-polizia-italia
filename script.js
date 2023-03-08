@@ -26,7 +26,12 @@
         const rowProvince = iteration?.children?.item(3);
         const rowAvailability = iteration?.children?.item(5);
         const rowHref = iteration?.children.item(6)?.children[0]?.getAttribute('href')?.split("data=");
-
+        
+        if (rowAvailability?.innerHTML == "No") {
+            iteration.innerHtml = '';
+            continue;
+        }
+        
         if (
             rowProvince?.innerHTML != "ROMA" ||
             rowAvailability?.innerHTML != "Si" ||
