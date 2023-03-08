@@ -7,43 +7,39 @@
 
 (function() {
     'use strict';
+    setTimeout(() => {
+        if (!window.location.href.startsWith("https://www.passaportonline.poliziadistato.it/CittadinoAction.do?codop=resultRicercaRegistiProvincia")) return undefined;
+        if (!document?.getElementById('infos')?.children[2].children?.length) return undefined;
 
-    if (!window.location.href.startsWith("https://www.passaportonline.poliziadistato.it/CittadinoAction.do?codop=resultRicercaRegistiProvincia")) return undefined;
-    if (!document?.getElementById('infos')?.children[2].children?.length) return undefined;
+        let table = document?.getElementById('infos')?.children[2].children
 
-    let table = document?.getElementById('infos')?.children[2].children
+        const toSkip = [
+            "COMMISSARIATO MONTE MARIO",
+            "COMMISSARIATO PRENESTINO",
+            "COMMISSARIATO LIDO DI ROMA"
+        ];
 
-    const toSkip = [
-        "COMMISSARIATO MONTE MARIO",
-        "COMMISSARIATO PRENESTINO",
-        "COMMISSARIATO LIDO DI ROMA"
-    ];
+        for (let i = 0; i < table?.length; i++) {
+            let iteration = table?.item(i);
 
-    for (let i = 0; i < table?.length; i++) {
-        let iteration = table?.item(i);
+            const rowCity = iteration?.children?.item(0)?.innerText
+            const rowProvince = iteration?.children?.item(3);
+            const rowAvailability = iteration?.children?.item(5);
+            const rowHref = iteration?.children.item(6)?.children[0]?.getAttribute('href')?.split("data=");
 
-        const rowCity = iteration?.children?.item(0)?.innerText
-        const rowProvince = iteration?.children?.item(3);
-        const rowAvailability = iteration?.children?.item(5);
-        const rowHref = iteration?.children.item(6)?.children[0]?.getAttribute('href')?.split("data=");
-        
-        if (rowAvailability?.innerHTML == "No") {
-            iteration.innerHtml = '';
-            continue;
+            if (
+                rowProvince?.innerHTML != "ROMA" ||
+                rowAvailability?.innerHTML != "Si" ||
+                !rowHref ||
+                !rowAvailability ||
+                !!toSkip.find(e => e == rowCity)
+            ) {
+                document.getElementById(iteration.id).innerHTML = '';
+                continue;
+            }
+
+            rowAvailability.innerHTML = rowHref[1];
         }
-        
-        if (
-            rowProvince?.innerHTML != "ROMA" ||
-            rowAvailability?.innerHTML != "Si" ||
-            !rowHref ||
-            !rowAvailability ||
-            !!toSkip.find(e => e == rowCity)
-        ) {
-            document.getElementById(iteration.id).innerHTML = '';
-            continue;
-        }
-
-        rowAvailability.innerHTML = rowHref[1];
-    }
-    console.log("website tweaked")
+        console.log("website tweaked")
+    }, 350)
 })();
