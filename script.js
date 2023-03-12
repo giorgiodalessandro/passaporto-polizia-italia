@@ -12,7 +12,10 @@
         if (!document?.getElementById('infos')?.children[2].children?.length) return undefined;
 
         let table = document?.getElementById('infos')?.children[2].children
-
+        
+        // the city that only fit to you
+        const myCity = 'ROMA'
+        // the 'places' to skip
         const toSkip = [
             "COMMISSARIATO MONTE MARIO",
             "COMMISSARIATO PRENESTINO",
@@ -28,7 +31,7 @@
             const rowHref = iteration?.children.item(6)?.children[0]?.getAttribute('href')?.split("data=");
 
             if (
-                rowProvince?.innerHTML != "ROMA" ||
+                rowProvince?.innerHTML != myCity ||
                 rowAvailability?.innerHTML != "Si" ||
                 !rowHref ||
                 !rowAvailability ||
@@ -40,6 +43,5 @@
 
             rowAvailability.innerHTML = rowHref[1];
         }
-        console.log("website tweaked")
     }, 350)
 })();
