@@ -1,8 +1,7 @@
 # passaporto-polizia-italia
 
-
-1. download tampermonkey or greasemonkey
-1. create a new script and copy paste 'script.js'
-1. adjust as you wish the 'toSkip' variable
-1. add `https://www.passaportonline.poliziadistato.it/CittadinoAction.do?codop=resultRicercaRegistiProvincia*` to the script's User Match
-1. enjoy
+1. Scaricare l'estensione TamperMonkey o GreaseMonkey
+1. Creare un nuovo script, copiare il contenuto di `script.js` e incollarlo nella pagina del nuovo inserimento dello script
+1. Aggiustare le variabili `myCity` e `toSkip`, la prima serve per prendere in considerazione solo la città che si preferisce, la seconda skippa le questure/commissariati
+1. Salvare, andare nei setting dello script appena creato e inserire nella voce User's Match `https://www.passaportonline.poliziadistato.it/CittadinoAction.do?codop=resultRicercaRegistiProvincia*`
+1. Enjoy
